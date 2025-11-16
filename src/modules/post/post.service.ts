@@ -34,7 +34,8 @@ export class HelloService {
     }
   } 
 
-  if(publish===true){try{
+  if(publish===true){
+    try{
      const postData = await this.helpers.generateInstagramPost(
      topic,
      res.join(",")
@@ -43,10 +44,12 @@ export class HelloService {
       images,
       postData.fullCaption
     );
+    return "successfully posted"
   } catch(err){
     this.logger.error('Error posting to Instagram', err as any);
-  } }
+  } 
+}
   
-  return images
+  return "failed to post"
   }
 }

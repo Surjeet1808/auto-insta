@@ -19,11 +19,11 @@ async downloadImages(@Query('topic') topic: string,@Query('publish') publish: st
 
     const shouldPublish = publish === 'true' || publish === '1';
 
-    const images = await this.helloService.consume(topic,shouldPublish);
+    const resp = await this.helloService.consume(topic,shouldPublish);
     
     return res.json({
       status: 'success',
-      images: images
+      message: resp
     });
     
   } catch (error) {

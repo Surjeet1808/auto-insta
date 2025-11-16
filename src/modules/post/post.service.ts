@@ -27,8 +27,8 @@ export class HelloService {
 
   for (const t of res) {
     try{
-    const { buffer, contentType } = await this.aiRemote.getImage(t);
-    const url = await this.helpers.saveImageLocally(buffer, contentType);
+    const { url} = await this.aiRemote.getImage(t);
+    //const url = await this.helpers.saveImageLocally(buffer, contentType);
     images.push(url);
     console.log('image:',url)
      } catch (err) {
@@ -36,19 +36,20 @@ export class HelloService {
     }
   } 
 
-  // try{
-  //   const res = this.instaRemote.postCarouselToInstagram(
-  //     images.map(i=>i.publicUrl),
-  //     `Here are some funny images about ${topic}!`
-  //   );
-  //   return res;
-  // } catch(err){
-  //   this.logger.error('Error posting to Instagram', err as any);
-  // } finally{
+  try{
+    const res = this.instaRemote.postCarouselToInstagram(
+      images.map(i=>i.publicUrl),
+      `Here are some funny images about ${topic}!`
+    );
+    return res;
+  } catch(err){
+    this.logger.error('Error posting to Instagram', err as any);
+  } 
+  // finally{
   //     for (const img of images) {
   //     this.helpers.deleteLocalFile(img.filePath)
   // }
-  //}
+  // }
   return images;
   }
 }

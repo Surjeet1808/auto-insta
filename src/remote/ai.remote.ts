@@ -29,8 +29,7 @@ export class AiRemote {
       responseType: 'arraybuffer'
     });
     return {
-      buffer: Buffer.from(res.data),
-      contentType: res.headers['content-type'] || 'image/png'
+       url:url
     };
   } catch (err) {
     this.logger.error('Error calling external API', err);

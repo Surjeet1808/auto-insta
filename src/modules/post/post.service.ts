@@ -3,7 +3,6 @@ import { AiRemote } from '../../remote/ai.remote';
 import { Helpers } from '../../helpers/file.helper';
 import { InstaRemote } from '../../remote/insta.remote';
 
-
 @Injectable()
 export class HelloService {
     constructor(
@@ -35,13 +34,12 @@ export class HelloService {
     }
   } 
 
-  const postData = await this.helpers.generateInstagramPost(
-  topic,
-  res.join(",")
-);
-
   if(publish===true){try{
-    const res = this.instaRemote.postCarouselToInstagram(
+     const postData = await this.helpers.generateInstagramPost(
+     topic,
+     res.join(",")
+     );
+    const resp = this.instaRemote.postCarouselToInstagram(
       images,
       postData.fullCaption
     );
@@ -49,6 +47,6 @@ export class HelloService {
     this.logger.error('Error posting to Instagram', err as any);
   } }
   
-  return images;
+  return images
   }
 }

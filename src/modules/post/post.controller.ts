@@ -9,8 +9,29 @@ export class HelloController {
 
 @Get('images')
 async downloadImages(@Query('topic') topic: string, @Res() res: Response) {
-  const images = await this.helloService.consume(topic);
-  return res.json({status:"success",images:images});
+  try {
+    if (!topic) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Topic is required'
+      });
+    }
+
+    const images = await this.helloService.consume(topic);
+    
+    return res.json({
+      status: 'success',
+      images: images
+    });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Something went wrong',
+      error: error
+    });
+  }
 }
 
 }

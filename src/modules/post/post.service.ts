@@ -27,10 +27,9 @@ export class HelloService {
 
   for (const t of res) {
     try{
-    const { url} = await this.aiRemote.getImage(t);
+    const  url = await this.aiRemote.getImage(t);
     //const url = await this.helpers.saveImageLocally(buffer, contentType);
     images.push(url);
-    console.log('image:',url)
      } catch (err) {
       this.logger.error('Error calling external image API', err as any);
     }
@@ -38,7 +37,7 @@ export class HelloService {
 
   try{
     const res = this.instaRemote.postCarouselToInstagram(
-      images.map(i=>i.publicUrl),
+      images,
       `Here are some funny images about ${topic}!`
     );
     return res;

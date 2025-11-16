@@ -14,6 +14,7 @@ async  postCarouselToInstagram(
     const containerIds = [];
     
     for (const imageUrl of imageUrls) {
+
       const response = await axios.post(
         `https://graph.facebook.com/v21.0/${process.env.INSTAGRAM_ACCOUNT_ID}/media`,
         {
@@ -24,8 +25,6 @@ async  postCarouselToInstagram(
       );
       containerIds.push(response.data.id);
     }
-    
-    console.log('Created containers:', containerIds);
     
     // Step 2: Create carousel container
     const carouselResponse = await axios.post(
@@ -39,7 +38,6 @@ async  postCarouselToInstagram(
     );
     
     const carouselId = carouselResponse.data.id;
-    console.log('Carousel container created:', carouselId);
     
     // Step 3: Publish the carousel
     const publishResponse = await axios.post(

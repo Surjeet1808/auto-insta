@@ -36,19 +36,19 @@ export class HelloService {
     }
   } 
 
-  try{
-    const res = this.instaRemote.postCarouselToInstagram(
-      images.map(i=>i.publicUrl),
-      `Here are some funny images about ${topic}!`
-    );
-    return res;
-  } catch(err){
-    this.logger.error('Error posting to Instagram', err as any);
-  } finally{
-      for (const img of images) {
-      this.helpers.deleteLocalFile(img.filePath)
-  }
-  }
+  // try{
+  //   const res = this.instaRemote.postCarouselToInstagram(
+  //     images.map(i=>i.publicUrl),
+  //     `Here are some funny images about ${topic}!`
+  //   );
+  //   return res;
+  // } catch(err){
+  //   this.logger.error('Error posting to Instagram', err as any);
+  // } finally{
+  //     for (const img of images) {
+  //     this.helpers.deleteLocalFile(img.filePath)
+  // }
+  //}
   return images;
   }
 }

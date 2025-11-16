@@ -17,8 +17,9 @@ export class HelloService {
     let res:any[]
     try {
        res = await this.aiRemote.getText(topic);
+       console.log("prompts:",res)
     } catch (err) {
-      this.logger.error('Error calling external API', err as any);
+      this.logger.error('Error calling external taxt API', err as any);
       throw err;
     }
 
@@ -29,9 +30,9 @@ export class HelloService {
     const { buffer, contentType } = await this.aiRemote.getImage(t);
     const url = await this.helpers.saveImageLocally(buffer, contentType);
     images.push(url);
-    console.log(url)
+    console.log('image:',url)
      } catch (err) {
-      this.logger.error('Error calling external API', err as any);
+      this.logger.error('Error calling external image API', err as any);
     }
   } 
 

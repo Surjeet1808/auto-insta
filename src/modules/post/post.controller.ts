@@ -8,7 +8,7 @@ export class HelloController {
   constructor(private readonly helloService: HelloService) {}
 
 @Get('images')
-async downloadImages(@Query('topic') topic: string, @Res() res: Response) {
+async downloadImages(@Query('topic') topic: string,@Query('publish') publish: string, @Res() res: Response) {
   try {
     if (!topic) {
       return res.status(400).json({
@@ -17,7 +17,9 @@ async downloadImages(@Query('topic') topic: string, @Res() res: Response) {
       });
     }
 
-    const images = await this.helloService.consume(topic);
+    const shouldPublish = publish === 'true' || publish === '1';
+
+    const images = await this.helloService.consume(topic,shouldPublish);
     
     return res.json({
       status: 'success',

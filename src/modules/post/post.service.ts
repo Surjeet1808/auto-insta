@@ -13,7 +13,7 @@ export class HelloService {
     ) {}
   private readonly logger = new Logger(HelloService.name);
 
-  async consume(topic:string): Promise<any> {
+  async consume(topic:string,publish:boolean): Promise<any> {
     let res:any[]
     try {
        res = await this.aiRemote.getText(topic);
@@ -35,31 +35,20 @@ export class HelloService {
     }
   } 
 
-  console.log('-------done--------')
-
   const postData = await this.helpers.generateInstagramPost(
   topic,
   res.join(",")
 );
 
-
-  // try{
-  //   const res = this.instaRemote.postCarouselToInstagram(
-  //     images,
-  //     postData.fullCaption
-  //   );
-  //   return res;
-  // } catch(err){
-  //   this.logger.error('Error posting to Instagram', err as any);
-  // } 
-  // finally{
-  //     for (const img of images) {
-  //     this.helpers.deleteLocalFile(img.filePath)
-  // }
-  // }
-
-  console.log(postData.fullCaption)
-
+  if(publish===true){try{
+    const res = this.instaRemote.postCarouselToInstagram(
+      images,
+      postData.fullCaption
+    );
+  } catch(err){
+    this.logger.error('Error posting to Instagram', err as any);
+  } }
+  
   return images;
   }
 }

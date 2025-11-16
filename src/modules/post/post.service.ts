@@ -17,7 +17,7 @@ export class HelloService {
     let res:any[]
     try {
        res = await this.aiRemote.getText(topic);
-       console.log("prompts:",res)
+       
     } catch (err) {
       this.logger.error('Error calling external taxt API', err as any);
       throw err;
@@ -35,20 +35,27 @@ export class HelloService {
     }
   } 
 
+  const postData = await this.helpers.generateInstagramPost(
+  topic,
+  res.join(",")
+);
+
+
   try{
     const res = this.instaRemote.postCarouselToInstagram(
       images,
-      `Here are some funny images about ${topic}!`
+      postData.fullCaption
     );
     return res;
   } catch(err){
     this.logger.error('Error posting to Instagram', err as any);
   } 
-  // finally{
-  //     for (const img of images) {
-  //     this.helpers.deleteLocalFile(img.filePath)
-  // }
-  // }
+  finally{
+      for (const img of images) {
+      this.helpers.deleteLocalFile(img.filePath)
+  }
+  }
+
   return images;
   }
 }

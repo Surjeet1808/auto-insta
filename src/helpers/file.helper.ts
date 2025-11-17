@@ -48,7 +48,7 @@ async  generateInstagramPost(
   try {
     // 1. Generate caption using Pollinations Text API
     const captionPrompt = `Write an engaging Instagram caption about topic: ${topic} and related five image discriptions: ${imagePrompt}. 
-    Make it catchy, authentic, and 6-7 sentences long. 
+    Make it catchy, authentic, and 2-3 sentences long. 
     Don't include hashtags in the caption.`;
     
     const captionResponse = await axios.post(
@@ -68,10 +68,8 @@ async  generateInstagramPost(
     
     const caption = captionResponse.data.trim();
 
-    const commonHashTags = "#anagogicrise #mysteriousart #darkart #surrealart #occultart #surrealism #mystery #enigmatic #haunting #atmospheric #darkfantasy #conceptart #symbolism #digitalart #moodygrams";
-
     // 2. Generate hashtags
-    const hashtagPrompt = `Generate 15-20 relevant Instagram hashtags for a post about about topic: ${topic} and related five image discriptions: ${imagePrompt}. 
+    const hashtagPrompt = `Generate 15-20 relevant Instagram hashtags for a post about about topic: ${topic} and related five image discriptions: ${imagePrompt} also add some common highlights releted to word anagogic rise. 
     Return only hashtags separated by spaces, no numbering or extra text.
     Mix popular and niche hashtags.`;
     
@@ -101,7 +99,7 @@ async  generateInstagramPost(
 .
 .
 .
-${hashtags.join(' ')+' '+commonHashTags}`;
+${hashtags.join(' ')}`;
 
     return {
       caption,

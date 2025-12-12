@@ -31,6 +31,7 @@ export class HelloService {
     images.push(url);
      } catch (err) {
       this.logger.error('Error calling external image API', err as any);
+      throw err
     }
   } 
 
@@ -47,6 +48,7 @@ export class HelloService {
     return "successfully posted"
   } catch(err){
     this.logger.error('Error posting to Instagram', err as any);
+    throw err
   } 
 }
   

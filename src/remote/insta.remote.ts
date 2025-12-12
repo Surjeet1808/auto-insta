@@ -32,15 +32,21 @@ async postCarouselToInstagram(
         }
       );
       console.log('Container created:', response.data.id);
+
       containerIds.push(response.data.id);
+      
+      // 2. Add a fixed 10-second delay
+      console.log("Waiting 10 seconds before next upload...");
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+
     }
 
     // Step 2: Wait for all media items to be processed
     console.log('⏳ Waiting for media items to be processed...');
     
-    for (const cid of containerIds) {
-      await this.waitForMediaStatus(cid);
-    }
+    // for (const cid of containerIds) {
+    //   await this.waitForMediaStatus(cid);
+    // }
     
     // Step 3: Create carousel container
     console.log('📦 Creating carousel container...');
@@ -65,6 +71,9 @@ async postCarouselToInstagram(
     
     const carouselId = carouselResponse.data.id;
     console.log('✅ Carousel container created:', carouselId);
+     // 2. Add a fixed 10-second delay
+      console.log("Waiting 10 seconds before publish...");
+      await new Promise((resolve) => setTimeout(resolve, 10000));
     
     // Verify carousel ID is valid
     if (!carouselId || carouselId === '0') {
@@ -73,8 +82,8 @@ async postCarouselToInstagram(
     }
     
     // Step 4: Wait for the CAROUSEL CONTAINER to be ready ⭐ THIS IS THE KEY FIX
-    console.log('⏳ Waiting for carousel container to be processed...');
-    await this.waitForMediaStatus(carouselId);
+    // console.log('⏳ Waiting for carousel container to be processed...');
+    // await this.waitForMediaStatus(carouselId);
     
     // Step 5: Publish the carousel
     console.log('📤 Publishing carousel...');
